@@ -1,3 +1,42 @@
 
 server:
   port: 8092
+
+config:
+  test:
+    message: This is message for bot-service [CHANGED].
+
+logging:
+  level:
+    root: info
+
+spring:
+  profiles:
+    # active profile
+    active: development
+
+---
+# this is a development profile
+# use it for local development and testing
+spring:
+  profiles: development
+  datasource:
+    sql-script-encoding: UTF-8
+  jpa:
+    hibernate.ddl-auto: none
+    properties.hibernate.temp.use_jdbc_metadata_defaults: false
+    show-sql: false
+  jackson.serialization.FAIL_ON_EMPTY_BEANS: false
+
+application:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://172.17.0.2:5432/bots-db
+    username: postgres
+    password: postgres
+
+---
+# this is a production profile
+spring:
+  profiles: production
+  jackson.serialization.FAIL_ON_EMPTY_BEANS: false
